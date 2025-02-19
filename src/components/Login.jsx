@@ -15,12 +15,22 @@ const Login = () => {
 
     // console.log(email.current.value);
     // console.log(password.current.value);
-    const message = checkValidData(
-      email.current.value,
-      password.current.value,
-      fullName.current.value
-    );
-    setErrorMessage(message);
+    const emailValue = email.current.value;
+    const passwordValue = password.current.value;
+    const fullNameValue = isSignInForm ? null : fullName.current.value;
+    // const message = checkValidData(
+    //   email.current.value,
+    //   password.current.value,
+    //   fullName.current.value
+    // );
+    // setErrorMessage(message);
+    const message = checkValidData(emailValue, passwordValue, fullNameValue);
+    if (message) {
+      setErrorMessage(message);
+      return;
+    }
+
+    setErrorMessage(null);
 
     // proceed to SignIn/Up for now
   };
@@ -68,7 +78,7 @@ const Login = () => {
         <p className="font-bold text-red-600 py-2">{errorMessage}</p>
         <button
           onClick={handleButtonClick}
-          className="p-4 my-6 bg-red-700 w-full rounded-lg"
+          className="p-4 my-6 bg-red-700 w-full rounded-lg cursor-pointer"
         >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
